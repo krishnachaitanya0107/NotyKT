@@ -5,6 +5,19 @@ on:
       - 'v*'
 
 jobs:
+  testing:
+    name: Compose Testing
+    runs-on: macos-latest
+    steps:
+    - name: Compose tests
+      uses: ReactiveCircus/android-emulator-runner@v2.26.0
+      with:
+        java-version: 12
+        api-level: ${{ matrix.api-level }}
+        target: ${{ matrix.target }}
+        arch: x86_64
+        profile: Nexus 6
+        script: ./gradlew :app:composeapp:connectedCheck
   release:
     name: Release NotyKT Android App
     runs-on: ubuntu-latest
